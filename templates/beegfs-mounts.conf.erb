@@ -1,0 +1,3 @@
+<% @beegfs_mount_hash.sort.map do |k,v| -%>
+<%= v['mnt'] %> /etc/beegfs/<%= v['cfg'] %>
+<% end -%>
