@@ -6,7 +6,7 @@ define beegfs::mount ($cfg, $mnt, $cfg_source, $netfilter = '', $netfilter_sourc
   include beegfs::client
 
   if $netfilter != '' and $netfilter_source != '' {
-    if $::rdma != 'true' {
+    if $::rdma != true {
       $netfilter_source_path = $netfilter_source
     } else {
       $netfilter_source_path = "${netfilter_source}-rdma"
