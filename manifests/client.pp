@@ -19,10 +19,15 @@ class beegfs::client (
   }
 
   service { 'beegfs-helperd':
-    ensure   => running,
-    enable   => true,
-    provider => redhat,
-    require  => Package['beegfs-helperd'],
+    ensure    => running,
+    enable    => true,
+    provider  => redhat,
+    require   => Package['beegfs-helperd'],
+    require   => [
+      Package['beegfs-helperd'],
+      File['/etc/beegfs/beegfs-helperd.conf']
+    ],
+    subscribe => File['/etc/beegfs/beegfs-helperd.conf'],
   }
 
   service { 'beegfs-client':
@@ -39,7 +44,15 @@ Exec['load_module'], File['/etc/beegfs/beegfs-mounts.conf'], ],
     ensure  => absent,
   }
 
-  file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
+  file { '/etc/beegfs/beegfs-helperd.conf':
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    require => Package['beegfs-helperd'],
+    content => template('beegfs/beegfs-helperd.conf.erb'),
+  }
+
+  file { [ "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
     ensure  => directory,
     owner   => root,
     group   => root,

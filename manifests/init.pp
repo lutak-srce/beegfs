@@ -20,6 +20,7 @@ class beegfs (
   $major_version = '2015',
   $interfaces_file = '',
   $net_filter_file = '',
+  $helperd_port = '8006',
 ) {
   case $major_version {
     default: {
