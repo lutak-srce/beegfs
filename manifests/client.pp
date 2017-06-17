@@ -1,14 +1,14 @@
 #
 # = Class: beegfs::client
 #
-# This module manages BeeGFS client. 
+# This module manages BeeGFS client.
 # Mountpoints are defined with beegfs::mount resource.
 #
 
 class beegfs::client (
   $version           = $beegfs::version,
   $kernel_module     = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
-  $beegfs_mount_hash, 
+  $beegfs_mount_hash,
 ) inherits beegfs {
   package { 'beegfs-helperd':
     ensure   => $version,
@@ -22,7 +22,6 @@ class beegfs::client (
     ensure    => running,
     enable    => true,
     provider  => redhat,
-    require   => Package['beegfs-helperd'],
     require   => [
       Package['beegfs-helperd'],
       File['/etc/beegfs/beegfs-helperd.conf']
@@ -34,10 +33,14 @@ class beegfs::client (
     ensure   => running,
     enable   => true,
     provider => redhat,
-    require  => [ Package['beegfs-client'], Service['beegfs-helperd'],
-File['/var/lib/beegfs/client/force-auto-build'],
-File["/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild/beegfs.ko"],
-Exec['load_module'], File['/etc/beegfs/beegfs-mounts.conf'], ],
+    require  => [
+      Package['beegfs-client'],
+      Service['beegfs-helperd'],
+      File['/var/lib/beegfs/client/force-auto-build'],
+      File["/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild/beegfs.ko"],
+      File['/etc/beegfs/beegfs-mounts.conf'],
+      Exec['load_module'],
+    ],
   }
 
   file { '/var/lib/beegfs/client/force-auto-build':
@@ -96,4 +99,4 @@ Exec['load_module'], File['/etc/beegfs/beegfs-mounts.conf'], ],
       require => [ Package['beegfs-client'] ],
     }
   }
-}	
+}
