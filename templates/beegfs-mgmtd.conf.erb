@@ -52,12 +52,12 @@ sysUpdateTargetStatesSecs              = 30
 tuneClientAutoRemoveMins               = <%= @client_auto_remove_mins %>
 tuneNumWorkers                         = 4
 
-tuneMetaDynamicPools                   = true
+tuneMetaDynamicPools                   = false
 tuneMetaInodesLowLimit                 = <%= @meta_inodes_low_limit %>
 tuneMetaInodesEmergencyLimit           = <%= @meta_inodes_emergency_limit %>
 tuneMetaSpaceLowLimit                  = <%= @meta_space_low_limit %>
 tuneMetaSpaceEmergencyLimit            = <%= @meta_space_emergency_limit %>
-tuneStorageDynamicPools                = true
+tuneStorageDynamicPools                = false
 tuneStorageInodesLowLimit              = <%= @storage_inodes_low_limit %>
 tuneStorageInodesEmergencyLimit        = <%= @storage_inodes_emergency_limit %>
 tuneStorageSpaceLowLimit               = <%= @storage_space_low_limit %>

@@ -13,7 +13,7 @@ class beegfs::admon (
     ensure => $version,
   }
   file { '/etc/beegfs/beegfs-admon.conf':
-    require => Package['beegfs-mgmtd'],
+    require => Package['beegfs-admon'],
     content => template('beegfs/beegfs-admon.conf.erb'),
   }
   service { 'beegfs-admon':
