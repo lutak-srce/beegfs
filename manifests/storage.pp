@@ -23,7 +23,7 @@ class beegfs::storage (
     ensure    => running,
     enable    => $enable,
     provider  => redhat,
-    require   => Package['beegfs-storage'];
-    subscribe => File['/etc/beegfs/beegfs-storage.conf'];
+    require   => Package['beegfs-storage'],
+    subscribe => File['/etc/beegfs/beegfs-storage.conf'],
   }
 }
