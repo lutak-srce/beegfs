@@ -18,10 +18,18 @@ class beegfs::client (
     ensure   => $version,
   }
 
+  case $::operatingsystemrelease {
+    default: {
+      $service_provider = 'redhat'
+    } /^7.*/: {
+      $service_provider = 'systemd'
+    }
+  }
+
   service { 'beegfs-helperd':
     ensure    => running,
     enable    => true,
-    provider  => redhat,
+    provider  => $service_provider,
     require   => [
       Package['beegfs-helperd'],
       File['/etc/beegfs/beegfs-helperd.conf']
@@ -32,7 +40,7 @@ class beegfs::client (
   service { 'beegfs-client':
     ensure   => running,
     enable   => true,
-    provider => redhat,
+    provider => $service_provider,
     require  => [
       Package['beegfs-client'],
       Service['beegfs-helperd'],
