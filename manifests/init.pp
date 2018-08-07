@@ -29,6 +29,9 @@ class beegfs (
     '2015': {
       require yum::repo::beegfs
     }
+    '7': {
+      require yum::repo::beegfs7
+    }
   }
 
   package { 'beegfs-utils':
