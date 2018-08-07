@@ -2,7 +2,7 @@
 #
 # This module manages BeeGFS client
 #
-define beegfs::mount ($cfg, $mnt, $cfg_source, $netfilter = '', $netfilter_source = '') {
+define beegfs::mount ($cfg, $mnt, $cfg_source, $netfilter = '', $netfilter_source = '', $version = '') {
   include beegfs::client
 
   if $netfilter != '' and $netfilter_source != '' {
