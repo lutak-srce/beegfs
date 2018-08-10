@@ -9,6 +9,7 @@ class beegfs::storage (
   $version              = $beegfs::version,
   $interfaces_file      = $beegfs::interfaces_file,
   $net_filter_file      = $beegfs::net_filter_file,
+  $storage_template     = $beegfs::storage_template,
   $allow_first_run_init = true,
   $num_workers          = 16,
 ) inherits beegfs {
@@ -17,7 +18,7 @@ class beegfs::storage (
   }
   file { '/etc/beegfs/beegfs-storage.conf':
     require => Package['beegfs-storage'],
-    content => template('beegfs/beegfs-storage.conf.erb'),
+    content => template($storage_template),
   }
   service { 'beegfs-storage':
     ensure    => running,

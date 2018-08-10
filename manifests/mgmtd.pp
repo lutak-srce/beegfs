@@ -14,6 +14,7 @@ class beegfs::mgmtd (
   $meta_inodes_emergency_limit    = $beegfs::meta_inodes_emergency_limit,
   $storage_inodes_low_limit       = $beegfs::storage_inodes_low_limit,
   $storage_inodes_emergency_limit = $beegfs::storage_inodes_emergency_limit,
+  $mgmtd_template                 = $beegfs::mgmtd_template,
   $version                        = $beegfs::version,
   $interfaces_file                = $beegfs::interfaces_file,
   $net_filter_file                = $beegfs::net_filter_file,
@@ -25,7 +26,7 @@ class beegfs::mgmtd (
   }
   file { '/etc/beegfs/beegfs-mgmtd.conf':
     require => Package['beegfs-mgmtd'],
-    content => template('beegfs/beegfs-mgmtd.conf.erb'),
+    content => template($mgmtd_template),
   }
   service { 'beegfs-mgmtd':
     ensure    => running,

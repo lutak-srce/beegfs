@@ -21,6 +21,10 @@ class beegfs (
   $interfaces_file = '',
   $net_filter_file = '',
   $helperd_port = '8006',
+  $mgmtd_template = 'beegfs/beegfs-mgmtd.conf.erb',
+  $storage_template = 'beegfs/beegfs-storage.conf.erb',
+  $meta_template = 'beegfs/beegfs-meta.conf.erb',
+  $helperd_template = 'beegfs/beegfs-helperd.conf.erb',
 ) {
   case $major_version {
     default: {
