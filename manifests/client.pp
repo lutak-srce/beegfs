@@ -7,6 +7,7 @@
 
 class beegfs::client (
   $version           = $beegfs::version,
+  $helperd_template  = $beegfs::helperd_template,
   $kernel_module     = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
   $beegfs_mount_hash,
 ) inherits beegfs {
@@ -60,10 +61,10 @@ class beegfs::client (
     group   => root,
     mode    => '0644',
     require => Package['beegfs-helperd'],
-    content => template('beegfs/beegfs-helperd.conf.erb'),
+    content => template($helperd_template),
   }
 
-  file { [ "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
+  file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
     ensure  => directory,
     owner   => root,
     group   => root,
