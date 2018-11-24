@@ -18,6 +18,7 @@ class beegfs (
   $storage_inodes_emergency_limit = '1M',
   $version = 'present',
   $major_version = '2015',
+  $minor_version = '',
   $interfaces_file = '',
   $net_filter_file = '',
   $helperd_port = '8006',
@@ -34,7 +35,11 @@ class beegfs (
       require yum::repo::beegfs
     }
     '7': {
-      require yum::repo::beegfs7
+      if $minor_version == '1' {
+        require yum::repo::beegfs71
+      else {
+        require yum::repo::beegfs7
+      }
     }
   }
 
