@@ -19,7 +19,6 @@ class beegfs::admon (
   service { 'beegfs-admon':
     ensure    => running,
     enable    => $enable,
-    provider  => redhat,
     require   => Package['beegfs-admon'],
     subscribe => File['/etc/beegfs/beegfs-admon.conf'];
   }
