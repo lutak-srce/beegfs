@@ -35,6 +35,7 @@ class beegfs::mgmtd (
       enable    => $enable,
       require   => Package['beegfs-mgmtd'],
       subscribe => File['/etc/beegfs/beegfs-mgmtd.conf'];
+    }
   } else {
     service { 'beegfs-mgmtd':
       ensure    => running,
@@ -42,5 +43,6 @@ class beegfs::mgmtd (
       provider  => redhat,
       require   => Package['beegfs-mgmtd'],
       subscribe => File['/etc/beegfs/beegfs-mgmtd.conf'];
+    }
   }
 }
