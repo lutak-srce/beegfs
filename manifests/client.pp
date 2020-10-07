@@ -24,6 +24,8 @@ class beegfs::client (
       $service_provider = 'redhat'
     } /^7.*/: {
       $service_provider = 'systemd'
+    } /^8.*/: {
+      $service_provider = 'systemd'
     }
   }
 
