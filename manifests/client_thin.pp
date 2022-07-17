@@ -11,10 +11,10 @@ class beegfs::client_thin (
   $beegfs_mount_hash,
 ) {
   file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
-    ensure  => directory,
-    owner   => root,
-    group   => root,
-    mode    => '0755',
+    ensure => directory,
+    owner  => root,
+    group  => root,
+    mode   => '0755',
   }
 
   file { "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild/beegfs.ko":
@@ -24,18 +24,24 @@ class beegfs::client_thin (
     mode    => '0644',
     source  => $kernel_module,
     require => [ File["/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild"] ],
+    notify  => Exec['load_module'],
   }
 
   exec { 'load_module':
-    command => "/sbin/depmod -a && touch /etc/beegfs/depmod_${::kernelrelease}_${::beegfsversion}",
-    path    => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
-    creates => "/etc/beegfs/depmod_${::kernelrelease}_${::beegfsversion}",
-    require => [ File["/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild/beegfs.ko"] ],
+    command     => '/sbin/depmod -a',
+    path        => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
+    require     => [ File["/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild/beegfs.ko"] ],
+    refreshonly => true,
   }
 
-  kmod::load { 'beegfs': }
+  kmod::load { 'beegfs': 
+    require => [ Exec['load_module'] ],
+  }  
 
   if $beegfs_mount_hash {
-    create_resources('beegfs::mount_thin', $beegfs_mount_hash)
+    $defaults = {
+      require => [ Kmod::Load['beegfs'] ],
+    }
+    create_resources('beegfs::mount_thin', $beegfs_mount_hash, $defaults)
   }
 }
