@@ -10,7 +10,7 @@ class beegfs::client_thin (
   $kernel_module     = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
   $beegfs_mount_hash,
 ) {
-  file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
+  file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild", '/etc/beegfs' ]:
     ensure => directory,
     owner  => root,
     group  => root,
@@ -40,7 +40,7 @@ class beegfs::client_thin (
 
   if $beegfs_mount_hash {
     $defaults = {
-      require => [ Kmod::Load['beegfs'] ],
+      require => [ Kmod::Load['beegfs'], File['/etc/beegfs'] ],
     }
     create_resources('beegfs::mount_thin', $beegfs_mount_hash, $defaults)
   }
