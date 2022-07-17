@@ -9,7 +9,7 @@
 class beegfs::client_thin (
   $kernel_module     = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
   $beegfs_mount_hash,
-) inherits beegfs {
+) {
   file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
     ensure  => directory,
     owner   => root,
