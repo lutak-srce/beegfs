@@ -38,7 +38,7 @@ class beegfs (
       if $minor_version == '1' {
         require yum::repo::beegfs71
       } else {
-        require yum::repo::beegfs7
+        require yum::repo::beegfs
       }
     }
   }
