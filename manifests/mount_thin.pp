@@ -21,7 +21,7 @@ define beegfs::mount_thin ($cfg, $mnt, $cfg_source) {
     atboot  => true,
     device  => 'beegfs_nodev',
     fstype  => 'beegfs',
-    options => "rw,relatime,cfgFile=${cfg},_netdev",
+    options => "rw,relatime,cfgFile=/etc/beegfs/${cfg},_netdev",
     dump    => 0,
     pass    => 0,
     require => [ File[$mnt], File["/etc/beegfs/${cfg}"] ],
