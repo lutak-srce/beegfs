@@ -7,7 +7,8 @@
 #
 
 class beegfs::client_thin (
-  $kernel_module     = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
+  $kernel_module       = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
+  $default_client_conf = false,
   $beegfs_mount_hash,
 ) {
   file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild", '/etc/beegfs' ]:
@@ -37,6 +38,13 @@ class beegfs::client_thin (
   kmod::load { 'beegfs': 
     require => [ Exec['load_module'] ],
   }  
+
+  if $default_client_conf {
+    file { '/etc/beegfs/beegfs-client.conf':
+      require => File['/etc/beegfs'],
+      content => template('beegfs/beegfs-client.conf.erb'),
+    }
+  }
 
   if $beegfs_mount_hash {
     $defaults = {
