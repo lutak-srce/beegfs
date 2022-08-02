@@ -40,10 +40,7 @@ class beegfs::client_thin (
   }  
 
   if $default_client_conf {
-    file { '/etc/beegfs/beegfs-client.conf':
-      require => File['/etc/beegfs'],
-      content => template('beegfs/beegfs-client.conf.erb'),
-    }
+    include beegfs
   }
 
   if $beegfs_mount_hash {
