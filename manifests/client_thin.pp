@@ -9,7 +9,7 @@
 class beegfs::client_thin (
   $kernel_module       = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
   $default_client_conf = false,
-  $beegfs_mount_hash,
+  $beegfs_mount_hash   = {},
 ) {
   file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild", '/etc/beegfs' ]:
     ensure => directory,
