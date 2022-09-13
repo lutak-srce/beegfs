@@ -26,6 +26,7 @@ class beegfs (
   $storage_template = 'beegfs/beegfs-storage.conf.erb',
   $meta_template = 'beegfs/beegfs-meta.conf.erb',
   $helperd_template = 'beegfs/beegfs-helperd.conf.erb',
+  $client_template = 'beegfs/beegfs-client.conf.erb',
 ) {
   case $major_version {
     default: {
@@ -48,6 +49,6 @@ class beegfs (
   }
   file { '/etc/beegfs/beegfs-client.conf':
     require => Package['beegfs-utils'],
-    content => template('beegfs/beegfs-client.conf.erb'),
+    content => template($client_template),
   }
 }
