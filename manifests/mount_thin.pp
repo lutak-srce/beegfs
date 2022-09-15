@@ -9,7 +9,7 @@ define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn = '') {
     group   => root,
     mode    => '0755',
   }
-  if ( $authn ) {
+  if ( $authn != '' ) {
     file { "/etc/beegfs/connauthfile-${title}":
       ensure  => file,
       owner   => root,
