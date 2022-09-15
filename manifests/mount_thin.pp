@@ -2,7 +2,7 @@
 #
 # This module manages BeeGFS mount
 #
-define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn) {
+define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn = '') {
   file { $mnt:
     ensure  => directory,
     owner   => root,
