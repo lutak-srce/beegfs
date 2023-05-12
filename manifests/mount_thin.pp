@@ -2,7 +2,7 @@
 #
 # This module manages BeeGFS mount
 #
-define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn = '') {
+define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn = '', $opts = 'rw') {
   file { $mnt:
     ensure  => directory,
     owner   => root,
@@ -30,7 +30,7 @@ define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn = '') {
     atboot  => true,
     device  => 'beegfs_nodev',
     fstype  => 'beegfs',
-    options => "rw,relatime,cfgFile=/etc/beegfs/${cfg},_netdev",
+    options => "${opts},relatime,cfgFile=/etc/beegfs/${cfg},_netdev",
     dump    => 0,
     pass    => 0,
     require => [ File[$mnt], File["/etc/beegfs/${cfg}"] ],
