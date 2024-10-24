@@ -18,7 +18,7 @@ class beegfs::eventlistener (
     service { 'beegfs-eventlistener':
       ensure    => running,
       enable    => true,
-      require   => [ Package['beegfs-hive-index'], File['/etc/beegfs/beegfs-eventlistener.conf'] ],
+      require   => [ Package['beegfs-utils'], File['/etc/beegfs/beegfs-eventlistener.conf'] ],
     }
   }
 }
