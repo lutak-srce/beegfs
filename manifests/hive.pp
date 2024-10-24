@@ -33,6 +33,7 @@ class beegfs::hive (
   if ( $enable ) {
     file { '/etc/beegfs/index/updateEnv.conf':
       require => Package['beegfs-hive-index'],
+      content => template('beegfs-hive-updateEnv.conf.erb'),
     }
       
     service { 'bee-update':
