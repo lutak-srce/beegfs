@@ -4,7 +4,6 @@
 # This module manages BeeGFS client.
 # Mountpoints are defined with beegfs::mount resource.
 #
-
 class beegfs::client (
   $version           = $beegfs::version,
   $helperd_template  = $beegfs::helperd_template,
@@ -19,7 +18,7 @@ class beegfs::client (
     ensure   => $version,
   }
 
-  case $::operatingsystemrelease {
+  case $facts['os']['release']['full'] {
     default: {
       $service_provider = 'redhat'
     } /^7.*/: {
@@ -67,10 +66,10 @@ class beegfs::client (
   }
 
   file { [ "/lib/modules/${::kernelrelease}/updates/fs", "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild" ]:
-    ensure  => directory,
-    owner   => root,
-    group   => root,
-    mode    => '0755',
+    ensure => directory,
+    owner  => root,
+    group  => root,
+    mode   => '0755',
   }
 
   file { "/lib/modules/${::kernelrelease}/updates/fs/beegfs_autobuild/beegfs.ko":

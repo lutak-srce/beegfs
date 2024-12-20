@@ -4,10 +4,10 @@
 #
 define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn = '', $opts = 'rw') {
   file { $mnt:
-    ensure  => directory,
-    owner   => root,
-    group   => root,
-    mode    => '0755',
+    ensure => directory,
+    owner  => root,
+    group  => root,
+    mode   => '0755',
   }
   if ( $authn != '' ) {
     file { "/etc/beegfs/connauthfile-${title}":
@@ -19,11 +19,11 @@ define beegfs::mount_thin ($cfg, $mnt, $cfg_source, $authn = '', $opts = 'rw') {
     }
   }
   file { "/etc/beegfs/${cfg}":
-    ensure  => file,
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    source  => $cfg_source,
+    ensure => file,
+    owner  => root,
+    group  => root,
+    mode   => '0644',
+    source => $cfg_source,
   }
   mount { $mnt:
     ensure  => mounted,

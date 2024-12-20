@@ -9,7 +9,7 @@ class beegfs::hive (
   $mount_path = '',
   $port       = 9000,
   $debug      = 0,
-  
+
 ) inherits beegfs {
   include yum::repo::beegfs::hive
 
@@ -35,11 +35,11 @@ class beegfs::hive (
       require => Package['beegfs-hive-index'],
       content => template('beegfs/beegfs-hive-updateEnv.conf.erb'),
     }
-      
+
     service { 'bee-update':
-      ensure    => running,
-      enable    => true,
-      require   => [ Package['beegfs-hive-index'], File['/etc/beegfs/index/updateEnv.conf'] ],
+      ensure  => running,
+      enable  => true,
+      require => [ Package['beegfs-hive-index'], File['/etc/beegfs/index/updateEnv.conf'] ],
     }
   }
 }
