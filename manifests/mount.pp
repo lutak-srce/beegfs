@@ -22,10 +22,10 @@ define beegfs::mount ($cfg, $mnt, $cfg_source, $netfilter = '', $netfilter_sourc
   }
 
   file { $mnt:
-    ensure  => directory,
-    owner   => root,
-    group   => root,
-    mode    => '0755',
+    ensure => directory,
+    owner  => root,
+    group  => root,
+    mode   => '0755',
   }
   file { "/etc/beegfs/${cfg}":
     ensure  => file,

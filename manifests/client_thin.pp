@@ -5,7 +5,6 @@
 # without installing beegfs-client and beegfs-helpers.
 # Mountpoints are defined with beegfs::mount_thin resource.
 #
-
 class beegfs::client_thin (
   $kernel_module       = "puppet:///modules/beegfs/${::kernelrelease}/${::beegfsversion}/${rdma_path}/beegfs.ko",
   $default_client_conf = false,
@@ -35,9 +34,9 @@ class beegfs::client_thin (
     refreshonly => true,
   }
 
-  kmod::load { 'beegfs': 
+  kmod::load { 'beegfs':
     require => [ Exec['load_module'] ],
-  }  
+  }
 
   if $default_client_conf {
     include beegfs

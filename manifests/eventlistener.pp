@@ -16,9 +16,9 @@ class beegfs::eventlistener (
 
   if ( $enable ) {
     service { 'beegfs-eventlistener':
-      ensure    => running,
-      enable    => true,
-      require   => [ Package['beegfs-utils'], File['/etc/beegfs/beegfs-eventlistener.conf'] ],
+      ensure  => running,
+      enable  => true,
+      require => [ Package['beegfs-utils'], File['/etc/beegfs/beegfs-eventlistener.conf'] ],
     }
   }
 }
