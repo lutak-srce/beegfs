@@ -31,6 +31,12 @@ class beegfs::mgmtd (
       require => Package['beegfs-mgmtd'],
       content => template($mgmtd_template),
     }
+    file { $mgmtd_directory:
+      ensure => directory,
+      owner  => root,
+      group  => root,
+      mode   => '0755',
+    }
   } else {
     file { '/etc/beegfs/beegfs-mgmtd.conf':
       require => Package['beegfs-mgmtd'],
