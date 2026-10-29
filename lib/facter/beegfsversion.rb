@@ -1,5 +1,5 @@
 def get_redhat_beegfs_version
-  version = Facter::Util::Resolution.execute('/bin/rpm -qa beegfs-utils')
+  version = Facter::Core::Resolution.execute('/bin/rpm -qa beegfs-utils')
   if match = /^beegfs-utils-(\d+\.\d+.*)$/.match(version)
     match[1]
   else
